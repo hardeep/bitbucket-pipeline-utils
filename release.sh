@@ -18,8 +18,15 @@ else
   npm run build
   echo "Creating Release $PACKAGE_VERSION"
   git add .
-  git add -f ./dist ./typings
-  git commit -m "[skip ci] Harvesting release $PACKAGE_VERSION"
+  if [ -d "./dist" ]; then
+    echo "Found ./dist folder. Force adding."
+    git add -f ./dist
+  fi
+  if [ -d "./typings" ]; then
+    echo "Found ./typings folder. Force adding."
+    git add -f ./typings
+  fi
+  git commit --allow-empty -m "[skip ci] Harvesting release $PACKAGE_VERSION"
   git tag $PACKAGE_VERSION
   git push --tags origin master 
   echo "Created Release $PACKAGE_VERSION"
