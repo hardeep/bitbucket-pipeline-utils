@@ -25,7 +25,7 @@ if [ -n "$IMAGE_EXISTS" ]; then
 else
   echo "The docker tag doesn't exist. Preparing docker instance.";
   docker build -t "$ECR_REPOSITORY:$PACKAGE_VERSION" $DOCKER_FILE
-  $(aws ecr get-login)
+  $(aws ecr get-login --no-include-email)
   docker push "$ECR_REPOSITORY:$PACKAGE_VERSION"
 fi
 
