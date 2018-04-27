@@ -13,6 +13,11 @@ if [ -z "$ECR_REPOSITORY" ]; then
   exit 1;
 fi
 
+if [ -z "$ECR_REPOSITORY_URL" ]; then
+  echo "NO ecr repository url defined.";
+  exit 1;
+fi
+
 if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
   echo "No AWS_ACCESS_KEY_ID or AWS_SECRET_ACCESS_KEY.";
   exit 1;
@@ -24,8 +29,8 @@ if [ -n "$IMAGE_EXISTS" ]; then
   echo "Docker instance already exists. Skipping.";
 else
   echo "The docker tag doesn't exist. Preparing docker instance.";
-  docker build -t "$ECR_REPOSITORY:$PACKAGE_VERSION" $DOCKER_FILE
+  docker build -t "$ECR_REPOSITORY_URL:$PACKAGE_VERSION" $DOCKER_FILE
   $(aws ecr get-login --no-include-email)
-  docker push "$ECR_REPOSITORY:$PACKAGE_VERSION"
+  docker push "$ECR_REPOSITORY_URL:$PACKAGE_VERSION"
 fi
 
