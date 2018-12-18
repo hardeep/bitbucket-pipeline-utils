@@ -1,4 +1,4 @@
-FROM node:8.9.3
+FROM node:8.12.0
 
 
 COPY ./release.sh /usr/bin/git-release
