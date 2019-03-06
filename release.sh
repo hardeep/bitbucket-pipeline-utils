@@ -29,9 +29,9 @@ else
   git commit --allow-empty -m "[skip ci] Harvesting release $PACKAGE_VERSION"
   git tag $PACKAGE_VERSION
   git push --tags origin master
-  git fetch origin development
-  git checkout development
-  git rebase master
-  git push origin development
+  git fetch -v
+  git checkout -b development
+  git rebase -v origin/master
+  git push -v origin development:development
   echo "Created Release $PACKAGE_VERSION"
 fi
