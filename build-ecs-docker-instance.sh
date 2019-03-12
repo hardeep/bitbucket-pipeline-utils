@@ -28,7 +28,9 @@ IMAGE_EXISTS=$(aws ecr list-images --repository-name $ECR_REPOSITORY  | jq ".ima
 if [ -n "$IMAGE_EXISTS" ]; then
   echo "Docker instance already exists. Skipping.";
 else
-  echo "The docker tag doesn't exist. Preparing docker instance.";
+  echo "The docker tag doesn't exist. Building project."
+  npm run build
+  echo "Preparing docker instance.";
   docker build -t "$ECR_REPOSITORY_URL:$PACKAGE_VERSION" $DOCKER_FILE
   $(aws ecr get-login --no-include-email)
   docker push "$ECR_REPOSITORY_URL:$PACKAGE_VERSION"
