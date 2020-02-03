@@ -13,20 +13,8 @@ if [ ! -z $(git tag -l | grep $PACKAGE_VERSION) ];
   then echo "Tag found exiting";
     exit 0;
 else 
-  echo "Package version $PACKAGE_VERSION not already tagged."
-#   echo "Creating build."
-#   npm run build
-#   echo "Creating Release $PACKAGE_VERSION"
-#   git add .
-#   if [ -d "./dist" ]; then
-#     echo "Found ./dist folder. Force adding."
-#     git add -f ./dist
-#   fi
-#   if [ -d "./typings" ]; then
-#     echo "Found ./typings folder. Force adding."
-#     git add -f ./typings
-#   fi
-  git commit --allow-empty -m "[skip ci] Harvesting release $PACKAGE_VERSION"
+  echo "Tagging package version $PACKAGE_VERSION."
+  git commit --allow-empty -m "[skip ci] 🚀 Harvesting release $PACKAGE_VERSION"
   git tag $PACKAGE_VERSION
   git push --tags origin master
   git fetch -v
