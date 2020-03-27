@@ -14,6 +14,7 @@ if [ ! -z $(git tag -l | grep $PACKAGE_VERSION) ];
     exit 0;
 else 
   echo "Tagging package version $PACKAGE_VERSION."
+  git add -u
   git commit --allow-empty -m "[skip ci] 🚀 Harvesting release $PACKAGE_VERSION"
   git tag $PACKAGE_VERSION
   git push --tags origin master
